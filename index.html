@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Astronomer's Dream</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+        }
+    </style>
+    <canvas id="rive-canvas"></canvas>
+    <script>
+        // The layout of the graphic will adhere to
+        const layout = new rive.Layout({
+            fit: rive.Fit.FitWidth, // Change to: rive.Fit.Contain, or Cover
+            alignment: rive.Alignment.Center,
+        });
+
+        // HTML Canvas element to render to
+        const canvas = document.getElementById("rive-canvas");
+
+        const riveInstance = new rive.Rive({
+            src: "./astronomer.riv",
+            canvas,
+            autoplay: true,
+            layout,
+            stateMachines: "SM_Main",
+            onLoad: () => {
+                riveInstance.resizeDrawingSurfaceToCanvas();
+                // Re-adjust the rendering surface if the window resizes
+                window.addEventListener(
+                    "resize",
+                    () => {
+                        riveInstance.resizeDrawingSurfaceToCanvas();
+                    },
+                    false
+                );
+            },
+        });
+    </script>
+</body>
+
+</html>
